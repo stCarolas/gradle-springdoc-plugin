@@ -12,6 +12,9 @@ dependencies {
     testCompile files("${System.properties['java.home']}/../lib/tools.jar")
 }
 
+group = 'com.thilko.spring'
+version = "0.8"
+
 task wrapper(type: Wrapper) {
     gradleVersion = '1.12'
 }
@@ -56,12 +59,15 @@ uploadArchives {
         mavenDeployer {
             beforeDeployment { deployment -> signing.signPom(deployment) }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-                authentication(userName: "$SONATYPE_USER", password: "$SONATYPE_PASSWORD")
-            }
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
-                authentication(userName: "$SONATYPE_USER", password: "$SONATYPE_PASSWORD")
-            }
+            //            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+            //                authentication(userName: "$SONATYPE_USER", password: "$SONATYPE_PASSWORD")
+            //            }
+            //            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+            //                authentication(userName: "$SONATYPE_USER", password: "$SONATYPE_PASSWORD")
+            //            }
+//            repository(
+                mavenLocal()
+//            )
 
             /*repository(url: "file://localhost/tmp/myRepo/")*/
 
@@ -98,7 +104,7 @@ uploadArchives {
                 }
                 groupId = 'com.thilko.spring'
                 artifactId = 'gradle-springdoc-plugin'
-                version = "0.7"
+                version = "0.8"
             }
         }
     }

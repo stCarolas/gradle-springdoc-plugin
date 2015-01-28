@@ -6,31 +6,37 @@ import org.codehaus.groovy.reflection.ClassInfo
 import java.lang.ref.SoftReference
 import java.lang.reflect.Modifier
 import java.lang.reflect.ParameterizedType
+import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.util.Set;
 
 
 class ModelInstance {
     def instance
     private ModelInstanceType[] defaultValues = [
-            [accepts: { it == String.class }, value: { "a string" }],
-            [accepts: { it == Long.class }, value: { 42L }],
-            [accepts: { it == long.class }, value: { 42L }],
-            [accepts: { it == Integer.class }, value: { 41 }],
-            [accepts: { it == int.class }, value: { 41 }],
-            [accepts: { it == Double.class }, value: { 77.7d }],
-            [accepts: { it == double.class }, value: { 77.7d }],
-            [accepts: { it == Date.class }, value: { new Date(0) }],
-            [accepts: { it == boolean.class }, value: { true }],
-            [accepts: { it == Boolean.class }, value: { true }],
+        [accepts: { it == String.class }, value: { "a string" }],
+        [accepts: { it == Long.class }, value: { 42L }],
+        [accepts: { it == long.class }, value: { 42L }],
+        [accepts: { it == Integer.class }, value: { 41 }],
+        [accepts: { it == int.class }, value: { 41 }],
+        [accepts: { it == Double.class }, value: { 77.7d }],
+        [accepts: { it == double.class }, value: { 77.7d }],
+        [accepts: { it == Date.class }, value: { new Date(0) }],
+        [accepts: { it == boolean.class }, value: { true }],
+        [accepts: { it == Boolean.class }, value: { true }],
     ] as ModelInstanceType[]
 
     private ModelInstanceType[] fieldsToIgnore = [
-            [accepts: { it.type == ClassInfo.class }],
-            [accepts: { it.type == MetaClass.class }],
-            [accepts: { it.type == SoftReference.class }],
-            [accepts: { it.type == Class.class }],
-            [accepts: { it.name == "serialVersionUID"}],
-            [accepts: { it.name.startsWith("_") }],
-            [accepts: { Modifier.isFinal(it.modifiers)}]
+        [accepts: { it.type == ClassInfo.class }],
+        [accepts: { it.type == MetaClass.class }],
+        [accepts: { it.type == SoftReference.class }],
+        [accepts: { it.type == Class.class }],
+        [accepts: { it.type == BigInteger.class }],
+        [accepts: { it.type == BigDecimal.class }],
+        [accepts: { it.type == Set.class }],
+        [accepts: { it.name == "serialVersionUID"}],
+        [accepts: { it.name.startsWith("_") }],
+        [accepts: { Modifier.isFinal(it.modifiers)}]
     ] as ModelInstanceType[]
 
     static def fromClass(Class<?> aClass) {

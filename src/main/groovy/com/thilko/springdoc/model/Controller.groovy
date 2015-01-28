@@ -1,6 +1,7 @@
 package com.thilko.springdoc.model
 
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 
 import javax.lang.model.element.TypeElement
 
@@ -15,9 +16,10 @@ class Controller {
     }
 
     static def resourceGroupsFor(List<TypeElement> controllerAnnotations) {
-        def allMethods = controllerAnnotations.collect { createController(it) }
-                .collect { it.methods }
-                .flatten()
+        def allMethods = controllerAnnotations
+        .collect { createController(it) }
+        .collect { it.methods }
+        .flatten()
 
         allMethods.groupBy { it.baseName() }.collect {
             new ResourceGroup(resources: it.value, name: it.key.toString())
@@ -51,6 +53,12 @@ class Controller {
 
     private def createApiMethod(executable) {
         def resource = Resource.fromElement(executable)
+//        println("annos: " + resource.requestMappingAnnotation())
+//        if (resource.requestMappingAnnotation().method().size() > 1) {
+//            resource.requestMappingAnnotation().method().each{RequestMethod method -> 
+//                println("method: " + method)
+//            }
+//        }
         if (hasRequestMapping() && !hasRootPath()) {
             resource.applyPathPrefix(controllerPath())
         }

@@ -12,6 +12,8 @@ import javax.lang.model.type.TypeKind
 class Resource {
 
     private ExecutableElement methodElement
+    
+    private static final docUrl = "http://testjmb.alfabank.ru";
 
     def cssClasses = ["GET": "label label-primary",
             "POST": "label label-success",
@@ -23,7 +25,7 @@ class Resource {
     static def fromElement(methodElement) {
         new Resource(methodElement)
     }
-
+    
     private Resource(methodElement) {
         this.methodElement = methodElement
     }
@@ -59,7 +61,7 @@ class Resource {
 
     def path() {
         def value = requestMappingAnnotation().value()
-        value.length == 0 ? "/${pathPrefix}" : "${pathPrefix}${value.first()}"
+        value.length == 0 ? "${pathPrefix}" : "${pathPrefix}${value.first()}"
     }
 
     def queryParameter() {
@@ -69,7 +71,7 @@ class Resource {
     }
 
     def url() {
-        def base = "http://example.com${path()}"
+        def base = docUrl + path();
         if (!queryParameter().isEmpty()) {
             def parameter = queryParameter().collect { "${it.name()}=" }.join("&")
             base += "?${parameter}"

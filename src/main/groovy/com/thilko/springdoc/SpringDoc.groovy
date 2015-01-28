@@ -24,6 +24,7 @@ class SpringDoc {
                 title "Api documentation"
                 link(href: "http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css", rel: "stylesheet", "")
                 link(href: "springdoc.css", rel: "stylesheet", "")
+                link(href: "custom.css", rel: "stylesheet", "")
             }
             body {
                 div(class: "springdoc") {
@@ -35,14 +36,19 @@ class SpringDoc {
                                     div(class: "panel panel-default") {
                                         div(class: "panel-heading") {
                                             h2(class: "panel-title") {
-                                                a("data-toggle": "collapse", "data-parent": "#api-resource", href: "#$resourceIdx", group.name)
+                                                a("data-toggle": "collapse", "data-parent": "#api-resource",
+                                                    href: "#$resourceIdx", group.name)
                                             }
                                         }
                                         div(id: "$resourceIdx", class: "panel-collapse collapse") {
                                             ul(class: "list-unstyled") {
                                                 group.resources.each { Resource resource ->
-                                                    li {
-                                                        a("href": "#${resourceIdx}_${resource.implementationName()}", "data-toggle": "tab", "${resource.path()}")
+                                                    li(class: "resource-item") {
+                                                        div(class: "${resource.httpMethodCssClass()} resource-method",
+                                                            resource.httpMethod())
+                                                        a("href": "#${resourceIdx}_${resource.implementationName()}",
+                                                         "data-toggle": "tab", \
+                                                            "${resource.path()}")
                                                     }
                                                 }
                                             }
