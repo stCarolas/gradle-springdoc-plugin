@@ -66,8 +66,8 @@ class Resource {
 
     def queryParameter() {
         methodElement.parameters
-                .findAll { it.getAnnotation(RequestParam.class) != null }
-                .collect { QueryParameter.fromVariableElement(it) }
+        .findAll { it.getAnnotation(RequestParam.class) != null }
+        .collect { QueryParameter.fromVariableElement(it) }
     }
 
     def url() {
@@ -88,7 +88,7 @@ class Resource {
     }
 
     def hasResponse() {
-        methodElement.getAnnotation(ResponseBody) != null
+        methodElement.getAnnotation(ResponseBody) != null || methodElement.getReturnType().toString() =~ /.*ResponseEntity<.*?>$/
     }
 
     def hasRequestBody() {
@@ -117,6 +117,6 @@ class Resource {
     @Override
     public String toString() {
         return com.google.common.base.Objects.toStringHelper(this)
-                .add("method", methodElement.simpleName.toString()).toString()
+        .add("method", methodElement.simpleName.toString()).toString()
     }
 }
