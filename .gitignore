@@ -50,3 +50,4 @@ springdoc.js
 test/build
 plugin/build
 build
+/.nb-gradle/private/

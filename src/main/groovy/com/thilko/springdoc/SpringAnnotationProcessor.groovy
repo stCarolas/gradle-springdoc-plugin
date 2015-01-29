@@ -1,6 +1,7 @@
 package com.thilko.springdoc
 
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RestController
 
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.ProcessingEnvironment
@@ -26,7 +27,7 @@ class SpringAnnotationProcessor extends AbstractProcessor {
 
     @Override
     Set<String> getSupportedAnnotationTypes() {
-        return [Controller.class.canonicalName]
+        return [Controller.class.canonicalName, RestController.class.canonicalName]
     }
 
     @Override
