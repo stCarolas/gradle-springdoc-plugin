@@ -8,7 +8,7 @@ import javax.lang.model.element.TypeElement
 
 class SpringDoc {
 
-    public static withClasses(classes) {
+    public static fromClasses(classes) {
         return new SpringDoc(classes)
     }
 
@@ -24,7 +24,6 @@ class SpringDoc {
                 title "Api documentation"
                 link(href: "http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css", rel: "stylesheet", "")
                 link(href: "springdoc.css", rel: "stylesheet", "")
-                link(href: "custom.css", rel: "stylesheet", "")
             }
             body {
                 div(class: "springdoc") {
@@ -76,7 +75,7 @@ class SpringDoc {
                                                     li() { a("href": "#queryparam$apiMethodContent", "data-toggle": "tab", "Query parameter") }
                                                 }
 
-                                                li() { a("href": "#impl$apiMethodContent", "data-toggle": "tab", "Implementation") }
+//                                                li() { a("href": "#impl$apiMethodContent", "data-toggle": "tab", "Implementation") }
                                             }
                                             div(class: "tab-content") {
                                                 div(class: "tab-pane active", id: "summary$apiMethodContent") {
@@ -118,24 +117,24 @@ class SpringDoc {
                                                     }
                                                 }
 
-                                                div(class: "tab-pane", id: "impl$apiMethodContent") {
-                                                    table(class: "table table-hover") {
-                                                        tbody {
-                                                            tr {
-                                                                td "Implementation class"
-                                                                td apiMethod.implementationClassName()
-                                                            }
-                                                            tr {
-                                                                td "Method name"
-                                                                td apiMethod.implementationName()
-                                                            }
-                                                            tr {
-                                                                td "Response class"
-                                                                td apiMethod.response().className()
-                                                            }
-                                                        }
-                                                    }
-                                                }
+//                                                div(class: "tab-pane", id: "impl$apiMethodContent") {
+//                                                    table(class: "table table-hover") {
+//                                                        tbody {
+//                                                            tr {
+//                                                                td "Implementation class"
+//                                                                td apiMethod.implementationClassName()
+//                                                            }
+//                                                            tr {
+//                                                                td "Method name"
+//                                                                td apiMethod.implementationName()
+//                                                            }
+//                                                            tr {
+//                                                                td "Response class"
+//                                                                td apiMethod.response().className()
+//                                                            }
+//                                                        }
+//                                                    }
+//                                                }
                                             }
                                         }
                                     }
@@ -149,6 +148,8 @@ class SpringDoc {
                 script(src: "http://code.jquery.com/jquery-1.10.1.min.js", "")
                 script(src: "http://code.jquery.com/jquery-migrate-1.2.1.min.js", "")
                 script(src: "http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js", "")
+                script(src: "lib/codemirror.js", "")
+                script(src: "mode/javascript/javascript.js", "")       
             }
         }
     }

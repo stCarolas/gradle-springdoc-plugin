@@ -22,7 +22,7 @@ class QueryParameter {
 
     def defaultValue(){
         def defaultValue = requestParamAnnotation().defaultValue()
-        defaultValue == ValueConstants.DEFAULT_NONE ? "" : defaultValue
+        defaultValue == ValueConstants.DEFAULT_NONE ? "..." : defaultValue
     }
 
     def required(){

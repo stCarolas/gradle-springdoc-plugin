@@ -18,8 +18,10 @@ class SpringAnnotationProcessor extends AbstractProcessor {
             return true
         }
         def fileObject = processingEnv.filer.createResource(StandardLocation.SOURCE_OUTPUT, "", "index.html", null)
-        def classes = annotations.collect { roundEnv.getElementsAnnotatedWith(it) }.flatten()
-        def doc = SpringDoc.withClasses(classes)
+        def classes = annotations
+                        .collect { roundEnv.getElementsAnnotatedWith(it) }
+                        .flatten()
+        def doc = SpringDoc.fromClasses(classes)
         doc.generate(fileObject.name)
 
         return true

@@ -18,3 +18,8 @@
 .content {
     margin: 20px 0 0 0;
 }
+
+div.label.resource-method {
+    display: inline-block;
+    min-width: 75px;
+}

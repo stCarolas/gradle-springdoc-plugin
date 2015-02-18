@@ -12,8 +12,9 @@ import javax.lang.model.type.TypeKind
 class Resource {
 
     private ExecutableElement methodElement
-    
-    private static final docUrl = "http://testjmb.alfabank.ru";
+
+    // TODO make as external param
+    private static final docUrl = "https://testjmb.alfabank.ru/api/v1";
 
     def cssClasses = ["GET": "label label-primary",
             "POST": "label label-success",
@@ -34,13 +35,17 @@ class Resource {
         this.methodElement.simpleName
     }
 
+    def javadoc() {
+        
+    }
+
     def implementationClassName() {
         this.methodElement.enclosingElement.simpleName
     }
 
     def baseName() {
         def pathElements = path().split("/")
-        pathElements ? "/${pathElements[1]}" : "/"
+        pathElements ? "${pathElements[1]}" : ""
     }
 
     def httpMethod() {
@@ -61,6 +66,13 @@ class Resource {
 
     def path() {
         def value = requestMappingAnnotation().value()
+        
+        if (pathPrefix
+            && pathPrefix[pathPrefix.length() - 1] != "/"
+            && value.length > 0) {
+            this.pathPrefix = pathPrefix + "/"
+        }
+        
         value.length == 0 ? "${pathPrefix}" : "${pathPrefix}${value.first()}"
     }
 
@@ -73,7 +85,7 @@ class Resource {
     def url() {
         def base = docUrl + path();
         if (!queryParameter().isEmpty()) {
-            def parameter = queryParameter().collect { "${it.name()}=" }.join("&")
+            def parameter = queryParameter().collect { "${it.name()}=..." }.join("&")
             base += "?${parameter}"
         }
         return base

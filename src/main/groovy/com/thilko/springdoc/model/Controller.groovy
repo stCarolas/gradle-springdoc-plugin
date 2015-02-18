@@ -16,12 +16,13 @@ class Controller {
     }
 
     static def resourceGroupsFor(List<TypeElement> controllerAnnotations) {
-        def allMethods = controllerAnnotations
-        .collect { createController(it) }
-        .collect { it.methods }
-        .flatten()
+        def annotations = controllerAnnotations
+                            .collect{ createController(it) }
+                            .collect { it.methods }
+                            .flatten()
 
-        allMethods.groupBy { it.baseName() }.collect {
+        def groupedAnnotations = annotations.groupBy { it.baseName() }
+        groupedAnnotations.collect {
             new ResourceGroup(resources: it.value, name: it.key.toString())
         }
     }
@@ -53,12 +54,6 @@ class Controller {
 
     private def createApiMethod(executable) {
         def resource = Resource.fromElement(executable)
-//        println("annos: " + resource.requestMappingAnnotation())
-//        if (resource.requestMappingAnnotation().method().size() > 1) {
-//            resource.requestMappingAnnotation().method().each{RequestMethod method -> 
-//                println("method: " + method)
-//            }
-//        }
         if (hasRequestMapping() && !hasRootPath()) {
             resource.applyPathPrefix(controllerPath())
         }
