@@ -12,8 +12,12 @@ import javax.lang.model.type.TypeKind
 class Resource {
 
     private ExecutableElement methodElement
-    
-    private static final docUrl = "http://testjmb.alfabank.ru";
+
+    // TODO make as external param
+    private static final docUrl = "http://testjmb.alfabank.ru/api";
+
+    // TODO hardcode
+    def srcDir = new File("C:/git/uapi-rs/uapi-war/src/main/java")
 
     def cssClasses = ["GET": "label label-primary",
             "POST": "label label-success",
@@ -32,6 +36,10 @@ class Resource {
 
     def implementationName() {
         this.methodElement.simpleName
+    }
+
+    def javadoc() {
+        
     }
 
     def implementationClassName() {

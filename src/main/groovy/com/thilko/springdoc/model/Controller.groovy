@@ -16,12 +16,19 @@ class Controller {
     }
 
     static def resourceGroupsFor(List<TypeElement> controllerAnnotations) {
-        def allMethods = controllerAnnotations
-        .collect { createController(it) }
-        .collect { it.methods }
-        .flatten()
+        println("origin: " + controllerAnnotations)
+        def withControllers = controllerAnnotations.collect{
+            createController(it)
+        }
+        println("with controller: " + withControllers)
+        def allMethodsNonFlatten = withControllers.collect { it.methods }
+        println("collected methods " + allMethodsNonFlatten)
+        def allMethods = allMethodsNonFlatten.flatten()
+        println("flattened:  " + allMethods)
 
-        allMethods.groupBy { it.baseName() }.collect {
+        def grouped = allMethods.groupBy { it.baseName() }
+        println("grouped: " + grouped)
+        grouped.collect {
             new ResourceGroup(resources: it.value, name: it.key.toString())
         }
     }

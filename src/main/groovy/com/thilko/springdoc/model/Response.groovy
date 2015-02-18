@@ -13,13 +13,10 @@ class Response {
     }
 
     def className() {
-        println("return type: " + returnType)
         if (returnType.toString() =~ /.*ResponseEntity<.*?>$/) {
-            println("matched of Entity:  " + ((DeclaredType) returnType).typeArguments[0].toString())
             return ((DeclaredType) returnType).typeArguments[0].toString()
         }
 
-        println("summary: " + returnType)
         returnType.toString()
     }
 

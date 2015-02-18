@@ -14,7 +14,7 @@ import java.util.Set;
 class ModelInstance {
     def instance
     private ModelInstanceType[] defaultValues = [
-        [accepts: { it == String.class }, value: { "a string" }],
+        [accepts: { it == String.class }, value: { "String" }],
         [accepts: { it == Long.class }, value: { 42L }],
         [accepts: { it == long.class }, value: { 42L }],
         [accepts: { it == Integer.class }, value: { 41 }],
@@ -59,7 +59,7 @@ class ModelInstance {
         println "Parsing field type ${instance.class}"
 
         instance.class.declaredFields.toList().findAll { fieldToFilter ->
-            println "--- check field to ignore ${fieldToFilter}"
+            //            println "--- check field to ignore ${fieldToFilter}"
             !fieldsToIgnore.any { it.accepts(fieldToFilter) }
         }.each { field ->
             boolean wasApplied = false
